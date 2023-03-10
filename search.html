@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<template id="card-template">
+    <div class="col-12 col-sm-6 col-md-4 mb-4">
+        <div class="card">
+            <img src="" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <p class="card-price"></p>
+                <a href="#" class="btn btn-primary card-buy-btn">Buy now</a>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+
+    <main>
+        <div id='card-list' class="row">
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-primary" id="all-btn">All</button>
+            <button type="button" class="btn btn-primary" id="women-btn">Women's Clothing</button>
+            <button type="button" class="btn btn-primary" id="men-btn">Men's Clothing</button>
+            <button type="button" class="btn btn-primary" id="jewelery-btn">jewelery</button>
+            <button type="button" class="btn btn-primary" id="electronics-btn">Electronics</button>
+        </div>
+
+    </main>
+    <script>
+        let data = [];
+    
+        fetch('https://fakestoreapi.com/products')
+            .then(response => response.json())
+            .then(productData => {
+                data = productData;
+                data.forEach((product) => {
+                    addCard({
+                        title: product.title,
+                        description: product.description,
+                        image: product.image,
+                        price: product.price,
+                    });
+                });
+            })
+            .catch(error => console.error(error));
+    
+    
+        document.getElementById("all-btn").addEventListener("click", function () {
+            filterProducts("all");
+        });
+    
+        document.getElementById("women-btn").addEventListener("click", function () {
+            filterProducts("women's clothing");
+        });
+    
+        document.getElementById("men-btn").addEventListener("click", function () {
+            filterProducts("men's clothing");
+        });
+    
+        document.getElementById("jewelery-btn").addEventListener("click", function () {
+            filterProducts("jewelery");
+        });
+    
+        document.getElementById("electronics-btn").addEventListener("click", function () {
+            filterProducts("electronics");
+        });
+    
+        function filterProducts(category) {
+            const filteredProducts = data.filter((product) => {
+                if (category === "all") {
+                    return true;
+                } else {
+                    return product.category.toLowerCase() === category;
+                }
+            });
+    
+            document.querySelector('#card-list').innerHTML = '';
+            filteredProducts.forEach((product) => {
+                const template = document.getElementById("card-template").content.cloneNode(true);
+                template.querySelector('.card-title').innerText = product.title;
+                template.querySelector('.card-text').innerText = product.description;
+                template.querySelector('.card-img-top').src = product.image;
+                template.querySelector('.card-price').innerText = `$${product.price}`;
+                template.querySelector('.btn-primary').addEventListener("click", function () {
+                    alert(`You bought ${product.title} for $${product.price}`);
+                });
+                document.querySelector('#card-list').appendChild(template);
+            });
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+/* Navbar */
+.navbar {
+  background-color: #f8f8f8;
+  font-size: 18px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.navbar-nav .nav-link {
+  color: #333;
+  margin-right: 10px;
+}
+
+@media (max-width: 767px) {
+  .navbar-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .nav-link {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown-menu {
+    position: right;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+  }
+}
