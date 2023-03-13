@@ -8,21 +8,20 @@
     }
 
     body {
-        background-image: url("https://raw.githubusercontent.com/ed-roh/react-ecommerce/master/client/src/assets/toa-heftiba-dti56waifB4-unsplash.jpeg");
+
+        background-color: #eee;
         background-repeat: no-repeat;
         background-size: cover;
         height: 100%;
-        background-size: full;
 
     }
 
-
-    /* For screens smaller than 600px */
-    @media (max-width: 600px) {
-        body {
-            background-size: contain;
-        }
+    .card {
+        width: 100%;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
     }
+
 
 
     h1 {
@@ -57,93 +56,61 @@
         padding-top: 20px;
     }
 
-    .carousel {
+    #category-buttons {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 10vh;
-        width: 100%;
+        justify-content: center;
+        align-items: flex-start;
+        margin-top: 50px;
+        font-family: 'Fauna One', sans-serif;
     }
 
-    .carousel-inner {
-        display: flex;
-        flex-wrap: nowrap;
-        width: 100%;
-        transition: transform 0.6s ease;
-    }
 
-    .carousel-prev,
-    .carousel-next {
-        background-color: transparent;
+    button {
+        background-color: #f2f2f2;
+        color: #333;
         border: none;
-        color: #000;
-        font-size: 20px;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .carousel-prev:before,
-    .carousel-next:before {
-        content: "";
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border-top: 5px solid #000;
-        border-right: 5px solid #000;
-        transform: rotate(45deg);
-        margin-right: 20px;
-        opacity: 50%;
-    }
-
-    .carousel-prev:before {
-        transform: rotate(-135deg);
-        margin-right: 0;
-        margin-left: 20px;
-    }
-
-    .carousel-prev:hover:before,
-    .carousel-next:hover:before {
-        border-color: #000000;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 0 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
 
     }
 
-    .carousel-prev {
-        left: 0;
-    }
-
-    .carousel-next {
-        right: 0;
+    button:hover {
+        background-color: #333;
+        color: #fff;
     }
 </style>
+<div class="grid" data-isotope='{ "itemSelector": ".grid-item", "layoutMode": "fitRows" }'>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+</div>
 
 <template id="card-template">
-    <div class="col-12 col-sm-6 col-md-4 mb-4 mx-auto">
-        <div class="card d-flex flex-column">
-            <img src="" class="card-img-top" alt="...">
-            <div class="card-body d-flex flex-column align-items-stretch">
+    <div class="col-12 col-md-6 col-lg-3" data-category="">
+        <br>
+        <br>
+        <div class="card">
+            <img class="card-img-top" alt="">
+            <div class="card-body">
                 <h5 class="card-title"></h5>
                 <p class="card-text"></p>
-                <a href="#" class="btn btn-primary">Buy now</a>
+                <p class="card-price"></p>
+                <button class="btn btn-primary">Buy Now</button>
             </div>
         </div>
     </div>
 </template>
 
-    <!-- off-canvas menu -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Shopping Cart</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            Your shopping cart is empty.
-        </div>
-    </div>
-
-
-
 <head>
+    <!-- https://mdbootstrap.com/docs/standard/extended/shopping-carts/#section-4 -->
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -156,10 +123,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Fauna+One&display=swap" rel="stylesheet">
 
-    <title>Hello, world!</title>
+    <!-- Isotope -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
+
+
+    <title>Offcanvas</title>
+
+
 </head>
 
 <body>
+
+    <!-- off-canvas menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            Your shopping cart is empty.
+        </div>
+    </div>
+
+    <!-- Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
@@ -174,10 +160,10 @@
             <div class="collapse navbar-collapse ms-auto" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index1.html">Home</a>
+                        <a class="nav-link" aria-current="page" href="index1.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="offcanvas.html">Shop</a>
+                        <a class="nav-link active" href="offcanvas.html">Shop</a>
                     </li>
                     <li class="nav-item">
                         <!-- modify the "Cart" link to open the offcanvas menu -->
@@ -195,73 +181,111 @@
         </div>
     </nav>
 
-
     <main>
-        <!--         <div id='card-list' class="row">
-            <div class="container text-center"> -->
-        <h1>Our Featured Products</h1>
-        <h2>Summer Sale</h2>
+        <h2>Explore</h2>
+        <div id="category-buttons">
+            <button id="all-btn">All</button>
+            <button id="women-btn">Women Clothing</button>
+            <button id="men-btn">Men Clothing</button>
+            <button id="jewelery-btn">Jewelery</button>
+            <button id="electronics-btn">Electronics</button>
+
+        </div>
+        <br>
+        <br>
+        <div class="row g-4 container-fluid mx-auto" id="card-list">
+
         </div>
 
 
-        <div class="carousel" style="display: flex; flex-direction: column; justify-content: center; width: 100%;">
-            <div class="carousel-inner"></div>
-            <button class="carousel-prev"></button>
-            <button class="carousel-next"></button>
-        </div>
-
-        </div>
     </main>
     <script>
-        let currentIndex = 0;
-        let cards = [];
+        let iso = null;
+        let data = [];
 
         fetch('https://fakestoreapi.com/products')
             .then(response => response.json())
-            .then(data => {
-                cards = data.map(product => {
-                    return {
-                        title: product.title,
-                        description: product.description,
-                        image: product.image
-                    };
+            .then(productData => {
+                data = productData;
+                data.forEach((product) => {
+                    addCard(product);
                 });
 
-                updateCarousel(currentIndex);
-                setInterval(() => {
-                    currentIndex = (currentIndex + 1) % cards.length;
-                    updateCarousel(currentIndex);
-                }, 3000); // change the time interval (in milliseconds) as per your requirement
+                iso = new Isotope('#card-list', {
+                    itemSelector: '.col-12',
+                    layoutMode: 'fitRows',
+
+                });
             })
             .catch(error => console.error(error));
 
-        function addCard(card) {
+        function addCard(product) {
             const template = document.getElementById("card-template").content.cloneNode(true);
-            template.querySelector('.card-title').innerText = card.title;
-            /* template.querySelector('.card-text').innerText = card.description; */
-            template.querySelector('.card-img-top').src = card.image;
-            document.querySelector('.carousel-inner').appendChild(template);
+            template.querySelector('.card-title').innerText = product.title;
+            template.querySelector('.card-text').innerText = product.description;
+            template.querySelector('.card-img-top').src = product.image;
+            template.querySelector('.card-price').innerText = `$${product.price}`;
+            template.querySelector('.btn-primary').addEventListener("click", function () {
+                alert(`You added ${product.title} for $${product.price} to your cart.`);
+                addCart(product.title, product.price)
+            });
+
+            const category = product.category.toLowerCase();
+            const $card = $(template.querySelector('.col-12'));
+            $card.attr('data-category', category); // add the category as a custom attribute to the card element
+            document.querySelector('#card-list').appendChild($card[0]);
         }
 
-        function updateCarousel(index) {
-            document.querySelector('.carousel-inner').innerHTML = '';
-            addCard(cards[index]);
+
+        function filterProducts(category) {
+            const filteredProducts = data.filter((product) => {
+                if (category === "all") {
+                    return true;
+                } else {
+                    return product.category.toLowerCase() === category;
+                }
+            });
+
+            iso.arrange({ filter: category === "all" ? "*" : `[data-category="${category}"]` }); // use custom attribute to filter the cards
+
+            document.querySelectorAll('.btn').forEach((btn) => {
+                btn.classList.remove('active');
+            });
+
+            document.querySelector(`#${category}-btn`).classList.add('active');
         }
 
-        document.querySelector('.carousel-prev').addEventListener('click', () => {
-            currentIndex = Math.max(0, currentIndex - 1);
-            updateCarousel(currentIndex);
+        document.getElementById("all-btn").addEventListener("click", function () {
+            filterProducts("all");
         });
 
-        document.querySelector('.carousel-next').addEventListener('click', () => {
-            currentIndex = Math.min(cards.length - 1, currentIndex + 1);
-            updateCarousel(currentIndex);
+        document.getElementById("women-btn").addEventListener("click", function () {
+            filterProducts("women's clothing");
         });
 
+        document.getElementById("men-btn").addEventListener("click", function () {
+            filterProducts("men's clothing");
+        });
+
+        document.getElementById("jewelery-btn").addEventListener("click", function () {
+            filterProducts("jewelery");
+        });
+
+        document.getElementById("electronics-btn").addEventListener("click", function () {
+            filterProducts("electronics");
+        });
+
+        window.onload = function () {
+            var grid = document.querySelector('.grid');
+            var iso = new Isotope(grid, {
+                itemSelector: '.grid-item',
+                layoutMode: 'fitRows'
+            });
+        };
         function addCart(productTitle, productPrice) {
 
-/* const productTitle = this.closest('.card').querySelector('.card-title').innerText; */
-    /* const productPrice = parseFloat(this.closest('.card').querySelector('.card-price').innerText.slice(1)) */;
+            /* const productTitle = this.closest('.card').querySelector('.card-title').innerText; */
+                /* const productPrice = parseFloat(this.closest('.card').querySelector('.card-price').innerText.slice(1)) */;
             const product = { title: productTitle, price: productPrice };
 
             // add the item to the cart
@@ -336,6 +360,8 @@
                 }
             });
         });
+
+
     </script>
 
 
