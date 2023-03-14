@@ -1,0 +1,45 @@
+1.What was your requirements gathering and design process? Was it useful/successful?
+Tested my technical knowledge to see what could do. 
+Looked at bootstrap docs for carasaul + offcanvas.
+made the design as I went along
+
+2.Give a high level overview of your application and its features
+Flow diagram
+
+Where does its data come from (external/internal APIs)?
+External API
+
+4.How is this data processed and displayed?
+Data is processed using FETCH and displayed using card templates
+
+5.How can the user interact with your application?
+Carasoul and catagories the api data and add the items to a cart
+
+6.What JS techniques have you used (eg. objects, arrays, DOM functions, loops, functions)?
+Home page, product information is loaded from an API and displayed in a carousel.. The fetch() method retrieves product information from the API, which is parsed as JSON and stored in an array of objects. The carousel is updated with functions and event listeners are added to the "Previous" and "Next" buttons.
+
+the fake store API and creates a product card layout. Users can filter products by category and add them to a shopping cart, which is stored in local storage. The script uses the addCard function to dynamically create product cards, which include a click event listener to add products to the cart. The filterProducts function filters the products based on the selected category and updates the product cards' visibility. The Isotope library is used to arrange the product cards. Click event listeners are added for each category button and a window.onload event listener initializes the product card layout. The addCart function adds products to the cart and saves the shopping cart data to local storage.
+
+
+7.What external tools/libraries have you used (eg. bootstrap/axios/charts)? How? Why?
+Bootstrap for nav bar caollapsing 
+Isotope lib for image animation while sorting
+Grids
+
+8.What kinds of HTML elements have you used (eg. tables, forms, divs, lists, headings, menus, videos, images)?
+divs, lists,headings
+
+
+9.What kinds of CSS features have you used (eg. animations, backgrounds, fonts, colours, flexbox, grid)?
+css for creation of button
+font import from google
+background image
+colours grey white black
+flexboxes
+grids for templates
+
+10.How might you extend the features of your application in future?
+Make the search bar functional
+Seperate the JS and html files
+make functionality of the cart, clear/ checkout
+
