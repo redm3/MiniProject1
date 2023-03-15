@@ -1,89 +1,6 @@
 <!doctype html>
 <html lang="en">
 
-<style>
-    .navbar-brand,
-    .navbar-nav .nav-link {
-        font-family: 'Fauna One', sans-serif;
-    }
-
-    body {
-
-        background-color: #eee;
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100%;
-
-    }
-
-    .card {
-        width: 100%;
-        margin-right: 1rem;
-        margin-bottom: 1rem;
-    }
-
-
-
-    h1 {
-        font-family: 'Fauna One', sans-serif;
-        text-align: center;
-        padding-top: 100px;
-    }
-
-    h2 {
-        font-family: 'Fauna One', sans-serif;
-        text-align: center;
-        opacity: 50%;
-        padding-top: 20px;
-    }
-
-    footer {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        padding-right: 20px;
-        font-family: 'Fauna One', sans-serif;
-        font-size: 20px;
-    }
-
-
-
-    .card-img-top {
-        max-width: 20%;
-        max-height: 20%;
-        /* display: block; */
-        margin: auto;
-        padding-top: 20px;
-    }
-
-    #category-buttons {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        margin-top: 50px;
-        font-family: 'Fauna One', sans-serif;
-    }
-
-
-    button {
-        background-color: #f2f2f2;
-        color: #333;
-        border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        font-weight: bold;
-        margin: 0 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-
-    }
-
-    button:hover {
-        background-color: #333;
-        color: #fff;
-    }
-</style>
 <div class="grid" data-isotope='{ "itemSelector": ".grid-item", "layoutMode": "fitRows" }'>
     <div class="grid-item"></div>
     <div class="grid-item"></div>
@@ -99,7 +16,7 @@
                 <h5 class="card-title"></h5>
                 <p class="card-text"></p>
                 <p class="card-price"></p>
-                <button class="btn btn-primary">Buy Now</button>
+                <button class="btn btn-primary">Add to cart</button>
             </div>
         </div>
     </div>
@@ -126,29 +43,43 @@
     <!-- Isotope -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
 
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
 
     <title>Offcanvas</title>
-
-
+    <link href="/css/style.css" rel="stylesheet">
+   
 </head>
 
 <body>
 
     <!-- off-canvas menu -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasMenuLabel">Shopping Cart</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div class="cart-buttons">
+                <button class="btn btn-primary checkout-btn">Checkout</button>
+                <button class="btn clear-storage-btn" id="clear-storage-btn">Clear Cart</button>
+            </div>
         </div>
         <div class="offcanvas-body">
-            Your shopping cart is empty.
+            <div class="cart-items">
+                Your shopping cart is empty.
+            </div>
+
         </div>
     </div>
+    
 
     <!-- Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+    
+    <!-- Navbar -->
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -166,7 +97,7 @@
                         <a class="nav-link active" href="offcanvas.html">Shop</a>
                     </li>
                     <li class="nav-item">
-                        <!-- modify the "Cart" link to open the offcanvas menu -->
+                        <!-- offcanvas menu -->
                         <button class="btn nav-link" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
                             Cart
@@ -182,16 +113,18 @@
     </nav>
 
     <main>
+        <!-- category buttons -->
         <h2>Explore</h2>
-        <div id="category-buttons">
-            <button id="all-btn">All</button>
-            <button id="women-btn">Women Clothing</button>
-            <button id="men-btn">Men Clothing</button>
-            <button id="jewelery-btn">Jewelery</button>
-            <button id="electronics-btn">Electronics</button>
-
-        </div>
-
+        <div class="container-md">
+            <div id="category-buttons" class="row g-3">
+              <button class="col-4 col-md-2 mx-2" id="all-btn">All</button>
+              <button class="col-4 col-md-2 mx-2" id="women-btn">Women Clothing</button>
+              <button class="col-4 col-md-2 mx-2" id="men-btn">Men Clothing</button>
+              <button class="col-6 col-md-2 mx-2" id="jewelery-btn">Jewelery</button>
+              <button class="col-6 col-md-2 mx-2" id="electronics-btn">Electronics</button>
+            </div>
+          </div>
+        
         <br>
         <br>
         <div class="container">
@@ -203,7 +136,7 @@
 
 
     </main>
-    <script>
+  <!--   <script>
         let iso = null;
         let data = [];
 
@@ -317,7 +250,7 @@
                 cartElement.appendChild(cartTotal);
             }
 
-            localStorage.setItSem("cartItems", JSON.stringify(cartItems));
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
         }
         let cartItems;
@@ -366,11 +299,16 @@
         });
 
 
-    </script>
+    </script> -->
 
 
 
 </body>
-<footer>E Shop 2023 Official</footer>
-
+<footer>
+    E Shop 2023 Official
+    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook fa-lg"></i></a>
+    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-lg"></i></a>
+</footer>
+<script src="./js/script1.js"></script>
 </html>

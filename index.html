@@ -1,114 +1,6 @@
 <!doctype html>
 <html lang="en">
 
-<style>
-    .navbar-brand,
-    .navbar-nav .nav-link {
-        font-family: 'Fauna One', sans-serif;
-    }
-
-    body {
-        background-image: url("https://raw.githubusercontent.com/ed-roh/react-ecommerce/master/client/src/assets/toa-heftiba-dti56waifB4-unsplash.jpeg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100%;
-        background-size: full;
-
-    }
-
-
-    h1 {
-        font-family: 'Fauna One', sans-serif;
-        text-align: center;
-        padding-top: 100px;
-    }
-
-    h2 {
-        font-family: 'Fauna One', sans-serif;
-        text-align: center;
-        opacity: 50%;
-        padding-top: 20px;
-    }
-
-    footer {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        padding-right: 20px;
-        font-family: 'Fauna One', sans-serif;
-        font-size: 20px;
-    }
-
-
-
-    .card-img-top {
-        max-width: 20%;
-        max-height: 20%;
-        /* display: block; */
-        margin: auto;
-        padding-top: 20px;
-    }
-
-    .carousel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 10vh;
-        width: 100%;
-    }
-
-    .carousel-inner {
-        display: flex;
-        flex-wrap: nowrap;
-        width: 100%;
-        transition: transform 0.6s ease;
-    }
-
-    .carousel-prev,
-    .carousel-next {
-        background-color: transparent;
-        border: none;
-        color: #000;
-        font-size: 20px;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .carousel-prev:before,
-    .carousel-next:before {
-        content: "";
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border-top: 5px solid #000;
-        border-right: 5px solid #000;
-        transform: rotate(45deg);
-        margin-right: 20px;
-        opacity: 50%;
-    }
-
-    .carousel-prev:before {
-        transform: rotate(-135deg);
-        margin-right: 0;
-        margin-left: 20px;
-    }
-
-    .carousel-prev:hover:before,
-    .carousel-next:hover:before {
-        border-color: #000000;
-
-    }
-
-    .carousel-prev {
-        left: 0;
-    }
-
-    .carousel-next {
-        right: 0;
-    }
-</style>
-
 <template id="card-template">
     <div class="col-12 col-sm-6 col-md-4 mb-4 mx-auto">
         <div class="card d-flex flex-column">
@@ -116,22 +8,12 @@
             <div class="card-body d-flex flex-column align-items-stretch">
                 <h5 class="card-title"></h5>
                 <p class="card-text"></p>
-                <a href="#" class="btn btn-primary">Buy now</a>
+                <!-- <a href="#" class="btn btn-primary">Buy now</a> -->
             </div>
         </div>
     </div>
 </template>
 
-    <!-- off-canvas menu -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Shopping Cart</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            Your shopping cart is empty.
-        </div>
-    </div>
 
 
 
@@ -148,7 +30,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Fauna+One&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-ay8O+WUGgsYHcU6Zfga6ZjK6WzFdQMXcE6gBwQrT/NlnW+yjvRgwoZL0mzwjhCd3HmPLevKefpSqqS/kKjH3Jw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+
+
     <title>Hello, world!</title>
+    <link href="/css/style.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -156,6 +50,24 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
+
+    <!-- off-canvas menu -->
+    <div class="offcanvas offcanvas-end show" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="cart-items">
+                Your shopping cart is empty.
+            </div>
+            <div class="cart-buttons">
+                <button class="btn btn-primary checkout-btn">Checkout</button>
+                <button class="btn btn-primary clear-btn">Clear Cart</button>
+            </div>
+        </div>
+    </div>
+    <!-- NAV -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">E Shop</a>
@@ -189,8 +101,6 @@
 
 
     <main>
-        <!--         <div id='card-list' class="row">
-            <div class="container text-center"> -->
         <h1>Our Featured Products</h1>
         <h2>Summer Sale</h2>
         </div>
@@ -201,10 +111,11 @@
             <button class="carousel-prev"></button>
             <button class="carousel-next"></button>
         </div>
+        <br>
 
         </div>
     </main>
-    <script>
+    <!-- <script>
         let currentIndex = 0;
         let cards = [];
 
@@ -328,11 +239,19 @@
                 }
             });
         });
-    </script>
+    </script> -->
+
 
 
 
 </body>
-<footer>E Shop 2023 Official</footer>
+<footer>
+    E Shop 2023 Official
+    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook fa-lg"></i></a>
+    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-lg"></i></a>
+</footer>
+
+<script src="./js/script.js"></script>
 
 </html>
