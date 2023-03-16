@@ -4,28 +4,23 @@ const getProducts = (req, res) => {
     
     axios.get('https://fakestoreapi.com/products') 
         .then(response => {
-            console.log(response.data)
-            res.status(200).json({success: true, products:[...response.data]})
+            const products = response.data.map(product => {
+                return {
+                    id: product.id,
+                    title: product.title,
+                    description: product.description,
+                    image: product.image,
+                    price: product.price,
+                    category: product.category
+                }
+            });
+            res.status(200).json({success: true, products});
         })
         .catch(error => {
             res.status(500).json({success: false, message: error.message})
         })
 }
 
-function filterProducts(req, res) {
-    const category = req.params.category;
-  
-    const filteredProducts = data.products.filter((product) => {
-      if (category === 'all') {
-        return true;
-      } else {
-        return product.category.toLowerCase() === category;
-      }
-    });
-  
-}
-
 module.exports = {
     getProducts,
-    filterProducts
 }

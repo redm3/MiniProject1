@@ -84,10 +84,8 @@ window.onload = function () {
 
 function addCart(productTitle, productPrice) {
     const product = { title: productTitle, price: productPrice };
-
     // add the item to the cart
     cartItems.push(product);
-
     // update the content of the shopping cart element in the off-canvas menu
     cartElement.innerHTML = '';
 
@@ -202,20 +200,25 @@ function addCart(productTitle, productPrice) {
     }
 
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    window.cartItems = cartItems;
 }
 
-let cartItems;
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
 // create an array to store the items in the cart
 if (localStorage.getItem('cartItems')) {
     cartItems = JSON.parse(localStorage.getItem('cartItems'));
+    // display items from local storage in the cart
+    if (cartItems.length > 0) {
+        for (let i = 0; i < cartItems.length; i++) {
+            // display each item in the cart
+        }
+    }
 } else {
     cartItems = [];
 }
-
 // get a reference to the shopping cart element in the off-canvas menu
 const cartElement = document.querySelector('#offcanvasMenu .offcanvas-body');
-
 // add a click event listener to all "Add to Cart" buttons
 document.querySelectorAll('.btn-primary').forEach((button) => {
     button.addEventListener('click', function () {
@@ -225,12 +228,12 @@ document.querySelectorAll('.btn-primary').forEach((button) => {
     });
 });
 
-$(document).ready(function() {
-    $(".nav-link").click(function() {
+$(document).ready(function () {
+    $(".nav-link").click(function () {
         $(".spinner-border").removeClass("d-none");
     });
 
-    $(window).on("load", function() {
+    $(window).on("load", function () {
         $(".spinner-border").addClass("d-none");
     });
 
@@ -238,4 +241,60 @@ $(document).ready(function() {
     offcanvas.addEventListener('hidden.bs.offcanvas', function () {
         $(".spinner-border").addClass("d-none");
     })
+});
+
+
+// update the content of the shopping cart element in the off-canvas menu
+function updateCart() {
+    cartElement.innerHTML = '';
+
+    if (cartItems.length === 0) {
+        cartElement.innerText = 'Your shopping cart is empty.';
+    } else {
+        const cartList = document.createElement('ul');
+        cartList.classList.add('list-group');
+        cartItems.forEach((item) => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+            listItem.innerHTML = `${item.title}<span class="badge bg-primary rounded-pill">$${item.price}</span>`;
+            cartList.appendChild(listItem);
+        });
+        cartElement.appendChild(cartList);
+
+        const cartTotal = document.createElement('div');
+        cartTotal.classList.add('text-end', 'mt-3');
+        cartTotal.innerHTML = `<strong>Total:</strong> $${cartItems.reduce((total, item) => total + item.price, 0)}`;
+        cartElement.appendChild(cartTotal);
+        cartElement.appendChild(checkoutBtn);
+
+        const clearBtn = document.createElement('button');
+        clearBtn.classList.add('btn', 'btn-danger', 'mt-3');
+        clearBtn.innerText = 'Clear Cart';
+        clearBtn.addEventListener('click', () => {
+            cartItems = [];
+            localStorage.removeItem('cartItems');
+            updateCart();
+        });
+        cartElement.appendChild(clearBtn);
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    window.cartItems = cartItems;
+}
+
+// display items from local storage in the cart on page load
+window.addEventListener('load', () => {
+    updateCart();
+});
+
+// add a click event listener to all "Add to Cart" buttons
+document.querySelectorAll('.btn-primary').forEach((button) => {
+    button.addEventListener('click', function () {
+        const productTitle = this.closest('.card').querySelector('.card-title').innerText;
+        const productPrice = parseFloat(this.closest('.card').querySelector('.card-price').innerText.slice(1));
+        const product = { title: productTitle, price: productPrice };
+        // add the item to the cart
+        cartItems.push(product);
+        updateCart();
+    });
 });

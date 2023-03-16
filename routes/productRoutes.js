@@ -8,9 +8,6 @@ router.get('/', (req, res) => {
     productController.getProducts(req, res)
 });
 
-router.get('/products/:category', (req, res) => {
-    productController.filterProducts(req, res)
-});
 
 
 module.exports = router;

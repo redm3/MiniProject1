@@ -9,7 +9,8 @@ fetch('/products')
             return {
                 title: product.title,
                 description: product.description,
-                image: product.image
+                image: product.image,
+                rating: product.rating
             };
         });
 
@@ -59,3 +60,4 @@ document.querySelector('.carousel-next').addEventListener('click', () => {
     currentIndex = Math.min(cards.length - 1, currentIndex + 1);
     updateCarousel(currentIndex);
 });
+
