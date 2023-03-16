@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+
+<div class="grid" data-isotope='{ "itemSelector": ".grid-item", "layoutMode": "fitRows" }'>
+    <div class="grid-item"></div>
+    <div class="grid-item"></div>
+</div>
+
+<template id="card-template">
+    <div class="col-12 col-md-6 col-lg-3" data-category="">
+        <br>
+        <br>
+        <div class="card">
+            <img class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text"></p>
+                <p class="card-price"></p>
+                <button class="btn btn-primary">Add to cart</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<head>
+    <!-- https://mdbootstrap.com/docs/standard/extended/shopping-carts/#section-4 -->
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fauna+One&display=swap" rel="stylesheet">
+
+    <!-- Isotope -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+
+    <title>Offcanvas</title>
+    <link href="/css/style.css" rel="stylesheet">
+   
+</head>
+
+<body>
+
+    <!-- off-canvas menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Shopping Cart</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="cart-items">
+                Your shopping cart is empty.
+            </div>
+            <div class="cart-buttons">
+                <button class="btn btn-primary checkout-btn">Checkout</button>
+                <button class="btn btn-primary clear-btn">Clear Cart</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    
+    <!-- Navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">E Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse ms-auto" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="offcanvas.html">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- offcanvas menu -->
+                        <button class="btn nav-link" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+                            Cart
+                        </button>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <h2>Explore</h2>
+        <div class="container-md">
+            <div id="category-buttons" class="row g-3">
+              <button class="col-4 col-md-2 mx-2" id="all-btn">All</button>
+              <button class="col-4 col-md-2 mx-2" id="women-btn">Women Clothing</button>
+              <button class="col-4 col-md-2 mx-2" id="men-btn">Men Clothing</button>
+              <button class="col-6 col-md-2 mx-2" id="jewelery-btn">Jewelery</button>
+              <button class="col-6 col-md-2 mx-2" id="electronics-btn">Electronics</button>
+            </div>
+          </div>
+        
+        <br>
+        <br>
+        <div class="container">
+
+            <div class="row g-3 layout" id="card-list">
+
+            </div>
+        </div>
+
+
+    </main>
+  <!--   <script>
+        let iso = null;
+        let data = [];
+
+        fetch('https://fakestoreapi.com/products')
+            .then(response => response.json())
+            .then(productData => {
+                data = productData;
+                data.forEach((product) => {
+                    addCard(product);
+                });
+
+                iso = new Isotope('#card-list', {
+                    itemSelector: '.col-12',
+                    layoutMode: 'fitRows',
+
+                });
+            })
+            .catch(error => console.error(error));
+
+        function addCard(product) {
+            const template = document.getElementById("card-template").content.cloneNode(true);
+            template.querySelector('.card-title').innerText = product.title;
+            template.querySelector('.card-text').innerText = product.description;
+            template.querySelector('.card-img-top').src = product.image;
+            template.querySelector('.card-price').innerText = `$${product.price}`;
+            template.querySelector('.btn-primary').addEventListener("click", function () {
+                alert(`You added ${product.title} for $${product.price} to your cart.`);
+                addCart(product.title, product.price)
+            });
+
+            const category = product.category.toLowerCase();
+            const $card = $(template.querySelector('.col-12'));
+            $card.attr('data-category', category); // add the category as a custom attribute to the card element
+            document.querySelector('#card-list').appendChild($card[0]);
+        }
+
+
+        function filterProducts(category) {
+            const filteredProducts = data.filter((product) => {
+                if (category === "all") {
+                    return true;
+                } else {
+                    return product.category.toLowerCase() === category;
+                }
+            });
+
+            iso.arrange({ filter: category === "all" ? "*" : `[data-category="${category}"]` }); // use custom attribute to filter the cards
+
+            document.querySelectorAll('.btn').forEach((btn) => {
+                btn.classList.remove('active');
+            });
+
+            document.querySelector(`#${category}-btn`).classList.add('active');
+        }
+
+        document.getElementById("all-btn").addEventListener("click", function () {
+            filterProducts("all");
+        });
+
+        document.getElementById("women-btn").addEventListener("click", function () {
+            filterProducts("women's clothing");
+        });
+
+        document.getElementById("men-btn").addEventListener("click", function () {
+            filterProducts("men's clothing");
+        });
+
+        document.getElementById("jewelery-btn").addEventListener("click", function () {
+            filterProducts("jewelery");
+        });
+
+        document.getElementById("electronics-btn").addEventListener("click", function () {
+            filterProducts("electronics");
+        });
+
+        window.onload = function () {
+            var grid = document.querySelector('.grid');
+            var iso = new Isotope(grid, {
+                itemSelector: '.grid-item',
+                layoutMode: 'fitRows'
+            });
+        };
+        function addCart(productTitle, productPrice) {
+
+            /* const productTitle = this.closest('.card').querySelector('.card-title').innerText; */
+                /* const productPrice = parseFloat(this.closest('.card').querySelector('.card-price').innerText.slice(1)) */;
+            const product = { title: productTitle, price: productPrice };
+
+            // add the item to the cart
+            cartItems.push(product);
+
+            // update the content of the shopping cart element in the off-canvas menu
+            /*  cartElement.innerHTML = ''; */
+            if (cartItems.length === 0) {
+                cartElement.innerText = 'Your shopping cart is empty.';
+            } else {
+                cartElement.innerText = "";
+                const cartList = document.createElement('ul');
+                cartList.classList.add('list-group');
+                cartItems.forEach((item) => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+                    listItem.innerHTML = `${item.title}<span class="badge bg-primary rounded-pill">$${item.price}</span>`;
+                    cartList.appendChild(listItem);
+                });
+                cartElement.appendChild(cartList);
+
+                const cartTotal = document.createElement('div');
+                cartTotal.classList.add('text-end', 'mt-3');
+                cartTotal.innerHTML = `<strong>Total:</strong> $${cartItems.reduce((total, item) => total + item.price, 0)}`;
+                cartElement.appendChild(cartTotal);
+            }
+
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+        }
+        let cartItems;
+        // create an array to store the items in the cart
+        if (localStorage.getItem("cartItems")) {
+            cartItems = JSON.parse(localStorage.getItem("cartItems"));
+        } else {
+            cartItems = [];
+        }
+
+        // get a reference to the shopping cart element in the off-canvas menu
+        const cartElement = document.querySelector('#offcanvasMenu .offcanvas-body');
+
+        // add a click event listener to all "Add to Cart" buttons
+        document.querySelectorAll('.btn-primary').forEach((button) => {
+            button.addEventListener('click', function () {
+
+                const productTitle = this.closest('.card').querySelector('.card-title').innerText;
+                const productPrice = parseFloat(this.closest('.card').querySelector('.card-price').innerText.slice(1));
+                const product = { title: productTitle, price: productPrice };
+
+                // add the item to the cart
+                cartItems.push(product);
+
+                // update the content of the shopping cart element in the off-canvas menu
+                /*  cartElement.innerHTML = ''; */
+                if (cartItems.length === 0) {
+                    cartElement.innerText = 'Your shopping cart is empty.';
+                } else {
+                    const cartList = document.createElement('ul');
+                    cartList.classList.add('list-group');
+                    cartItems.forEach((item) => {
+                        const listItem = document.createElement('li');
+                        listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+                        listItem.innerHTML = `${item.title}<span class="badge bg-primary rounded-pill">$${item.price}</span>`;
+                        cartList.appendChild(listItem);
+                    });
+                    cartElement.appendChild(cartList);
+
+                    const cartTotal = document.createElement('div');
+                    cartTotal.classList.add('text-end', 'mt-3');
+                    cartTotal.innerHTML = `<strong>Total:</strong> $${cartItems.reduce((total, item) => total + item.price, 0)}`;
+                    cartElement.appendChild(cartTotal);
+                }
+            });
+        });
+
+
+    </script> -->
+
+
+
+</body>
+<footer>
+    E Shop 2023 Official
+    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook fa-lg"></i></a>
+    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter fa-lg"></i></a>
+    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-lg"></i></a>
+</footer>
+<script src="./js/script1.js"></script>
+</html>
