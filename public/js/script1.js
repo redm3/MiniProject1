@@ -81,21 +81,19 @@ window.onload = function () {
         layoutMode: 'fitRows'
     });
 };
-function addCart(productTitle, productPrice) {
 
-    /* const productTitle = this.closest('.card').querySelector('.card-title').innerText; */
-        /* const productPrice = parseFloat(this.closest('.card').querySelector('.card-price').innerText.slice(1)) */;
+function addCart(productTitle, productPrice) {
     const product = { title: productTitle, price: productPrice };
 
     // add the item to the cart
     cartItems.push(product);
 
     // update the content of the shopping cart element in the off-canvas menu
-    /*  cartElement.innerHTML = ''; */
+    cartElement.innerHTML = '';
+
     if (cartItems.length === 0) {
         cartElement.innerText = 'Your shopping cart is empty.';
     } else {
-        cartElement.innerText = "";
         const cartList = document.createElement('ul');
         cartList.classList.add('list-group');
         cartItems.forEach((item) => {
@@ -110,15 +108,107 @@ function addCart(productTitle, productPrice) {
         cartTotal.classList.add('text-end', 'mt-3');
         cartTotal.innerHTML = `<strong>Total:</strong> $${cartItems.reduce((total, item) => total + item.price, 0)}`;
         cartElement.appendChild(cartTotal);
+
+        const checkoutBtn = document.createElement('button');
+        checkoutBtn.classList.add('btn', 'btn-success', 'mt-3', 'me-3');
+        checkoutBtn.innerText = 'Checkout';
+        checkoutBtn.addEventListener('click', () => {
+            // create the checkout modal
+            const modal = document.createElement('div');
+            modal.classList.add('modal', 'fade');
+            modal.setAttribute('id', 'checkoutModal');
+            modal.setAttribute('tabindex', '-1');
+            modal.setAttribute('aria-hidden', 'true');
+
+            // create the modal dialog
+            const modalDialog = document.createElement('div');
+            modalDialog.classList.add('modal-dialog', 'modal-dialog-centered');
+
+            // create the modal content
+            const modalContent = document.createElement('div');
+            modalContent.classList.add('modal-content');
+
+            // create the modal header
+            const modalHeader = document.createElement('div');
+            modalHeader.classList.add('modal-header');
+            modalHeader.innerHTML = `
+            <h5 class="modal-title">Checkout</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          `;
+            modalContent.appendChild(modalHeader);
+
+            // create the modal body
+            const modalBody = document.createElement('div');
+            modalBody.classList.add('modal-body');
+            modalBody.innerHTML = `
+          <form>
+          <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" required>
+          </div>
+          <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" required>
+          </div>
+          <div class="mb-3">
+              <label for="card-number" class="form-label">Card Number</label>
+              <input type="text" class="form-control" id="card-number" required>
+          </div>
+          <div class="mb-3">
+              <label for="expiration-date" class="form-label">Expiration Date</label>
+              <input type="text" class="form-control" id="expiration-date" required>
+          </div>
+          <div class="mb-3">
+              <label for="cvv" class="form-label">CVV</label>
+              <input type="text" class="form-control" id="cvv" required>
+          </div>
+      </form>
+  </div>
+</div>
+</div>
+`;
+            modalContent.appendChild(modalBody);
+
+            // create the modal footer
+            const modalFooter = document.createElement('div');
+            modalFooter.classList.add('modal-footer');
+            modalFooter.innerHTML = `
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="processPayment()">Pay</button>
+          `;
+            modalContent.appendChild(modalFooter);
+
+            modalDialog.appendChild(modalContent);
+            modal.appendChild(modalDialog);
+
+            document.body.appendChild(modal);
+
+            // show the modal
+            const checkoutModal = new bootstrap.Modal(modal);
+            checkoutModal.show();
+        });
+
+        cartElement.appendChild(checkoutBtn);
+
+        const clearBtn = document.createElement('button');
+        clearBtn.classList.add('btn', 'btn-danger', 'mt-3');
+        clearBtn.innerText = 'Clear Cart';
+        clearBtn.addEventListener('click', () => {
+            cartItems = [];
+            localStorage.removeItem('cartItems');
+            cartElement.innerText = 'Your shopping cart is empty.';
+        });
+        cartElement.appendChild(clearBtn);
     }
 
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
 }
+
 let cartItems;
+
 // create an array to store the items in the cart
-if (localStorage.getItem("cartItems")) {
-    cartItems = JSON.parse(localStorage.getItem("cartItems"));
+if (localStorage.getItem('cartItems')) {
+    cartItems = JSON.parse(localStorage.getItem('cartItems'));
 } else {
     cartItems = [];
 }
@@ -126,43 +216,11 @@ if (localStorage.getItem("cartItems")) {
 // get a reference to the shopping cart element in the off-canvas menu
 const cartElement = document.querySelector('#offcanvasMenu .offcanvas-body');
 
-
 // add a click event listener to all "Add to Cart" buttons
 document.querySelectorAll('.btn-primary').forEach((button) => {
     button.addEventListener('click', function () {
-
         const productTitle = this.closest('.card').querySelector('.card-title').innerText;
         const productPrice = parseFloat(this.closest('.card').querySelector('.card-price').innerText.slice(1));
-        const product = { title: productTitle, price: productPrice };
-
-        // add the item to the cart
-        cartItems.push(product);
-
-        // update the content of the shopping cart element in the off-canvas menu
-        /*  cartElement.innerHTML = ''; */
-        if (cartItems.length === 0) {
-            cartElement.innerText = 'Your shopping cart is empty.';
-        } else {
-            const cartList = document.createElement('ul');
-            cartList.classList.add('list-group');
-            cartItems.forEach((item) => {
-                const listItem = document.createElement('li');
-                listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
-                listItem.innerHTML = `${item.title}<span class="badge bg-primary rounded-pill">$${item.price}</span>`;
-                cartList.appendChild(listItem);
-            });
-            cartElement.appendChild(cartList);
-
-            const cartTotal = document.createElement('div');
-            cartTotal.classList.add('text-end', 'mt-3');
-            cartTotal.innerHTML = `<strong>Total:</strong> $${cartItems.reduce((total, item) => total + item.price, 0)}`;
-            cartElement.appendChild(cartTotal);
-        }
+        addCart(productTitle, productPrice);
     });
 });
-/* 
-const clearStorageBtn = document.querySelector('#clear-storage-btn');
-clearStorageBtn.addEventListener('click', function() {
-  localStorage.clear();
-  alert('Cart has been cleared!');
-}); */

@@ -43,6 +43,23 @@ footer {
   padding-top: 20px;
 }
 
+.card-stars {
+  display: flex;
+
+}
+
+.card-stars i {
+  font-size: 1.5rem;
+  margin-right: 0.25rem;
+}
+
+.card-stars .star-filled {
+  color: #FFD700;
+  border-color: #000;
+}
+
+
+
 .carousel {
   display: flex;
   flex-direction: column;
@@ -103,7 +120,9 @@ footer {
 }
 
 .card {
+  display: flex;
   width: 100%;
+  justify-content: center;
   margin-right: 1rem;
   margin-bottom: 1rem;
   border-radius: 2%;
