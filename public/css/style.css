@@ -58,6 +58,13 @@ footer {
   border-color: #000;
 }
 
+.spinner-container {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
 
 
 .carousel {

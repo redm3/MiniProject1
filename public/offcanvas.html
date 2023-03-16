@@ -50,7 +50,7 @@
 
     <title>Offcanvas</title>
     <link href="/css/style.css" rel="stylesheet">
-   
+
 </head>
 
 <body>
@@ -58,7 +58,7 @@
     <!-- off-canvas menu -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Shopping Cart</h5>
+            <h5 class="offcanvas-title" id="offcanvasMenuLabel">Cart</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -67,13 +67,20 @@
             </div>
         </div>
     </div>
-    
+
 
     <!-- Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-    
+    <!-- Spinner -->
+
+    <div class="spinner-container">
+        <div class="spinner-border text-primary d-none" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
     <!-- Navbar -->
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -111,14 +118,14 @@
         <h2>Explore</h2>
         <div class="container-md">
             <div id="category-buttons" class="row g-3">
-              <button class="col-4 col-md-2 mx-2" id="all-btn">All</button>
-              <button class="col-4 col-md-2 mx-2" id="women-btn">Women Clothing</button>
-              <button class="col-4 col-md-2 mx-2" id="men-btn">Men Clothing</button>
-              <button class="col-6 col-md-2 mx-2" id="jewelery-btn">Jewelery</button>
-              <button class="col-6 col-md-2 mx-2" id="electronics-btn">Electronics</button>
+                <button class="col-4 col-md-2 mx-2" id="all-btn">All</button>
+                <button class="col-4 col-md-2 mx-2" id="women-btn">Women Clothing</button>
+                <button class="col-4 col-md-2 mx-2" id="men-btn">Men Clothing</button>
+                <button class="col-6 col-md-2 mx-2" id="jewelery-btn">Jewelery</button>
+                <button class="col-6 col-md-2 mx-2" id="electronics-btn">Electronics</button>
             </div>
-          </div>
-        
+        </div>
+
         <br>
         <br>
         <div class="container">
@@ -130,7 +137,7 @@
 
 
     </main>
-  <!--   <script>
+    <!--   <script>
         let iso = null;
         let data = [];
 
@@ -305,4 +312,5 @@
     <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram fa-lg"></i></a>
 </footer>
 <script src="./js/script1.js"></script>
+
 </html>

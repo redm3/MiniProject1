@@ -224,3 +224,18 @@ document.querySelectorAll('.btn-primary').forEach((button) => {
         addCart(productTitle, productPrice);
     });
 });
+
+$(document).ready(function() {
+    $(".nav-link").click(function() {
+        $(".spinner-border").removeClass("d-none");
+    });
+
+    $(window).on("load", function() {
+        $(".spinner-border").addClass("d-none");
+    });
+
+    var offcanvas = document.getElementById('offcanvasMenu');
+    offcanvas.addEventListener('hidden.bs.offcanvas', function () {
+        $(".spinner-border").addClass("d-none");
+    })
+});
